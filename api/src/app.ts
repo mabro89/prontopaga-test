@@ -7,6 +7,7 @@ import {
   errorHandler,
   notFoundHandler,
 } from './shared/infrastructure/http/middlewares/error.middleware.js';
+import { buildAppDependencies } from './container.js';
 
 export const createApp = (): Application => {
   const app = express();
@@ -29,6 +30,12 @@ export const createApp = (): Application => {
       timestamp: new Date().toISOString(),
     });
   });
+
+  const { authRouter, userRouter, seedInitialData } = buildAppDependencies();
+  void seedInitialData();
+
+  app.use('/api/auth', authRouter);
+  app.use('/api/users', userRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
