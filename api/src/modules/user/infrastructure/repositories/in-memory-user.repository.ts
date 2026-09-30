@@ -9,10 +9,10 @@ export class InMemoryUserRepository implements IUserRepository {
     return user ? this.clone(user) : null;
   }
 
-  async findByEmail(correo: string): Promise<User | null> {
-    const normalized = correo.toLowerCase().trim();
+  async findByEmail(email: string): Promise<User | null> {
+    const normalized = email.toLowerCase().trim();
     for (const user of this.users.values()) {
-      if (user.correo.toLowerCase() === normalized) {
+      if (user.email.toLowerCase() === normalized) {
         return this.clone(user);
       }
     }
@@ -41,7 +41,7 @@ export class InMemoryUserRepository implements IUserRepository {
   private clone(user: User): User {
     return new User({
       id: user.id,
-      correo: user.correo,
+      email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
       rut: user.rut,

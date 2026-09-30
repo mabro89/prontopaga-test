@@ -2,7 +2,7 @@ export type UserRole = 'ADMIN' | 'USER';
 
 export interface UserProps {
   id: string;
-  correo: string;
+  email: string;
   firstName: string;
   lastName: string;
   rut: string;
@@ -16,7 +16,7 @@ export type SafeUser = Omit<UserProps, 'password'>;
 
 export class User {
   public readonly id: string;
-  public readonly correo: string;
+  public readonly email: string;
   public readonly firstName: string;
   public readonly lastName: string;
   public readonly rut: string;
@@ -27,7 +27,7 @@ export class User {
 
   constructor(props: UserProps) {
     this.id = props.id;
-    this.correo = props.correo.toLowerCase().trim();
+    this.email = props.email.toLowerCase().trim();
     this.firstName = props.firstName.trim();
     this.lastName = props.lastName.trim();
     this.rut = props.rut.trim();
@@ -40,7 +40,7 @@ export class User {
   public toSafeObject(): SafeUser {
     return {
       id: this.id,
-      correo: this.correo,
+      email: this.email,
       firstName: this.firstName,
       lastName: this.lastName,
       rut: this.rut,

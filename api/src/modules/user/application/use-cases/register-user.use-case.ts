@@ -5,7 +5,7 @@ import { IUserRepository } from '../../domain/user.repository.js';
 import { IPasswordHasher } from '../ports/password-hasher.interface.js';
 
 export interface RegisterUserDto {
-  correo: string;
+  email: string;
   firstName: string;
   lastName: string;
   rut: string;
@@ -20,9 +20,9 @@ export class RegisterUserUseCase {
   ) {}
 
   async execute(dto: RegisterUserDto): Promise<SafeUser> {
-    const existingByEmail = await this.userRepository.findByEmail(dto.correo);
+    const existingByEmail = await this.userRepository.findByEmail(dto.email);
     if (existingByEmail) {
-      throw new ConflictError('El correo electrónico ya se esta en uso');
+      throw new ConflictError('El email electrónico ya se esta en uso');
     }
 
     const existingByRut = await this.userRepository.findByRut(dto.rut);
@@ -34,7 +34,7 @@ export class RegisterUserUseCase {
 
     const user = new User({
       id: randomUUID(),
-      correo: dto.correo,
+      email: dto.email,
       firstName: dto.firstName,
       lastName: dto.lastName,
       rut: dto.rut,
