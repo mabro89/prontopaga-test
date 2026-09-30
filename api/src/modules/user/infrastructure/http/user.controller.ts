@@ -14,47 +14,67 @@ export class UserController {
   ) {}
 
   getUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const user = await this.getUserUseCase.execute(req.params.id);
-    res.status(200).json({
-      status: 'success',
-      data: user,
-    });
+    try {
+      const user = await this.getUserUseCase.execute(req.params.id);
+      res.status(200).json({
+        status: 'success',
+        data: user,
+      });
+    } catch (error) {
+      next(error);
+    }
   };
 
   listUsers = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const users = await this.listUsersUseCase.execute();
-    res.status(200).json({
-      status: 'success',
-      results: users.length,
-      data: users,
-    });
+    try {
+      const users = await this.listUsersUseCase.execute();
+      res.status(200).json({
+        status: 'success',
+        results: users.length,
+        data: users,
+      });
+    } catch (error) {
+      next(error);
+    }
   };
 
   getUserScore = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const scoreData = await this.getUserScoreUseCase.execute(req.params.id);
-    res.status(200).json({
-      status: 'success',
-      data: scoreData,
-    });
+    try {
+      const scoreData = await this.getUserScoreUseCase.execute(req.params.id);
+      res.status(200).json({
+        status: 'success',
+        data: scoreData,
+      });
+    } catch (error) {
+      next(error);
+    }
   };
 
   getMyScore = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    if (!req.user) {
-      throw new UnauthorizedError('Usuario no autenticado');
-    }
+    try {
+      if (!req.user) {
+        throw new UnauthorizedError('Usuario no autenticado');
+      }
 
-    const scoreData = await this.getUserScoreUseCase.execute(req.user.id);
-    res.status(200).json({
-      status: 'success',
-      data: scoreData,
-    });
+      const scoreData = await this.getUserScoreUseCase.execute(req.user.id);
+      res.status(200).json({
+        status: 'success',
+        data: scoreData,
+      });
+    } catch (error) {
+      next(error);
+    }
   };
 
   registerUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const user = await this.registerUserUseCase.execute(req.body);
-    res.status(201).json({
-      status: 'success',
-      data: user,
-    });
+    try {
+      const user = await this.registerUserUseCase.execute(req.body);
+      res.status(201).json({
+        status: 'success',
+        data: user,
+      });
+    } catch (error) {
+      next(error);
+    }
   };
 }
