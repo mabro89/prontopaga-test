@@ -82,7 +82,8 @@ Al iniciar la aplicación, se precargan los siguientes usuarios en el repositori
 ### Usuarios (`/api/users`) - Requiere cabecera `Authorization: Bearer <accessToken>`
 
 - `GET /api/users`: Lista todos los usuarios (solo rol `ADMIN`).
+- `GET /api/users?rut=<rut>`: Consulta el score de un usuario por su RUT (solo rol `ADMIN` o el propio usuario).
 - `POST /api/users`: Registra un usuario (solo rol `ADMIN`).
 - `GET /api/users/me/score`: Obtiene el score financiero del usuario autenticado (`{ rut, score, date }`).
 - `GET /api/users/:id`: Obtiene datos de un usuario (solo rol `ADMIN` o el propio usuario).
-- `GET /api/users/:id/score`: Obtiene el score de un usuario (solo rol `ADMIN` o el propio usuario).
+- `GET /api/users/:id/score`: Obtiene el score de un usuario por ID (solo rol `ADMIN` o el propio usuario).

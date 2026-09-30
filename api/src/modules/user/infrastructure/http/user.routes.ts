@@ -5,7 +5,7 @@ import {
   requireSelfOrAdmin,
 } from '../../../../shared/infrastructure/http/middlewares/role.middleware.js';
 import { validate } from '../../../../shared/infrastructure/http/middlewares/validate.middleware.js';
-import { createUserSchema, userIdParamSchema } from './user.schemas.js';
+import { createUserSchema, listUsersQuerySchema, userIdParamSchema } from './user.schemas.js';
 import { UserController } from './user.controller.js';
 
 export const createUserRouter = (userController: UserController): Router => {
@@ -16,7 +16,8 @@ export const createUserRouter = (userController: UserController): Router => {
   router.get('/me', userController.getMyScore);
   router.get('/me/score', userController.getMyScore);
 
-  router.get('/', requireRoles('ADMIN'), userController.listUsers);
+  // Listar usuarios (ADMIN) o consultar score por RUT (?rut=...)
+  router.get('/', validate({ query: listUsersQuerySchema }), userController.listUsers);
 
   router.post(
     '/',
