@@ -1,0 +1,3 @@
+cd api
+pnpm exec lint-staged
+pnpm run typecheck

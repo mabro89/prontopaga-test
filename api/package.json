@@ -9,7 +9,9 @@
     "start": "node dist/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write \"src/**/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\"",
+    "typecheck": "tsc --noEmit",
+    "prepare": "cd .. && husky api/.husky"
   },
   "keywords": [
     "express",
@@ -43,6 +45,8 @@
     "eslint": "^9.21.0",
     "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-prettier": "^5.2.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
     "prettier": "^3.5.3",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
