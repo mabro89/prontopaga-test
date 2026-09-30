@@ -3,6 +3,6 @@ import { env } from './config/env.js';
 
 const app = createApp();
 
-const server = app.listen(env.PORT, () => {
+app.listen(env.PORT, () => {
   console.log(`Servidor iniciado http://localhost:${env.PORT}`);
 });
