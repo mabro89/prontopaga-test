@@ -5,7 +5,7 @@ import { SafeUser } from '../../../user/domain/user.entity.js';
 import { ITokenService, TokenPair } from '../ports/token-service.interface.js';
 
 export interface LoginDto {
-  correo: string;
+  email?: string;
   password: string;
 }
 
@@ -22,7 +22,8 @@ export class LoginUseCase {
   ) {}
 
   async execute(dto: LoginDto): Promise<LoginResult> {
-    const user = await this.userRepository.findByEmail(dto.correo);
+    const targetEmail = dto.email ?? '';
+    const user = await this.userRepository.findByEmail(targetEmail);
     if (!user) {
       throw new UnauthorizedError('Credenciales inválidas');
     }
