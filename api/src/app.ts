@@ -3,6 +3,10 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { env } from './config/env.js';
+import {
+  errorHandler,
+  notFoundHandler,
+} from './shared/infrastructure/http/middlewares/error.middleware.js';
 
 export const createApp = (): Application => {
   const app = express();
@@ -25,6 +29,9 @@ export const createApp = (): Application => {
       timestamp: new Date().toISOString(),
     });
   });
+
+  app.use(notFoundHandler);
+  app.use(errorHandler);
 
   return app;
 };
