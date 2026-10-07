@@ -82,7 +82,7 @@ apiClient.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const { data } = await axios.post('/api/auth/refresh', {}, { withCredentials: true });
+        const { data } = await apiClient.post('/auth/refresh', {}, { withCredentials: true });
         const parsed = RefreshResponseSchema.parse(data);
         const newToken = parsed.data.accessToken;
 
