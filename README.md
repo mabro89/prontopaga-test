@@ -6,31 +6,57 @@ Monorepo con Backend API (Express, Hexagonal, TypeScript) y Frontend Web (React,
 
 ## Cómo ejecutar los proyectos
 
-### 1. Iniciar la API (Backend)
-```bash
-cd api
-pnpm install
-pnpm run dev
-```
-> La API se ejecutará en **`http://localhost:3001`**.
+### 1. Instalación de dependencias
 
-### 2. Iniciar la Web (Frontend)
-En otra terminal:
+Desde la raíz del monorepo:
+
 ```bash
-cd web
 pnpm install
-pnpm run dev
 ```
-> La aplicación web se ejecutará en **`http://localhost:5173`** y se conecta automáticamente a la API en el puerto 3001.
+
+### 2. Ejecución en desarrollo
+
+Puedes iniciar ambos proyectos en paralelo o cada uno de forma individual desde la raíz:
+
+- **Ambos proyectos a la vez (API + Web):**
+
+  ```bash
+  pnpm run dev
+  ```
+
+- **Solo la API (Backend):**
+
+  ```bash
+  pnpm run dev:api
+  ```
+
+  > La API se ejecutará en **`http://localhost:3001`**.
+
+- **Solo la Web (Frontend):**
+  ```bash
+  pnpm run dev:web
+  ```
+  > La aplicación web se ejecutará en **`http://localhost:5173`** y se conecta a la API en el puerto 3001.
+
+### Otros comandos útiles
+
+- **Construir todos los proyectos:**
+  ```bash
+  pnpm run build
+  ```
+- **Ejecutar linters (ESLint + Oxlint):**
+  ```bash
+  pnpm run lint
+  ```
 
 ---
 
 ## Usuarios de prueba
 
-| Rol | Email | Contraseña | RUT | Permiso Score |
-|---|---|---|---|---|
-| **ADMIN** | `admin@prontopaga.com` | `Admin123!` | `11.111.111-1` | Consulta todos los RUTs |
-| **USER** | `juan.perez@prontopaga.com` | `User123!` | `22.222.222-2` | Solo su propio RUT |
+| Rol       | Email                       | Contraseña  | RUT            | Permiso Score           |
+| --------- | --------------------------- | ----------- | -------------- | ----------------------- |
+| **ADMIN** | `admin@prontopaga.com`      | `Admin123!` | `11.111.111-1` | Consulta todos los RUTs |
+| **USER**  | `juan.perez@prontopaga.com` | `User123!`  | `22.222.222-2` | Solo su propio RUT      |
 
 ---
 
