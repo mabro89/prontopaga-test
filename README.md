@@ -1,12 +1,33 @@
 # ProntoPaga - Evaluación Técnica
 
-Monorepo con Backend API (Express, Hexagonal, TypeScript) y Frontend Web (React, Vite, Tailwind CSS, Zustand).
+Monorepo con Backend API y Frontend Web .
 
 ---
 
 ## Cómo ejecutar los proyectos
 
-### 1. Instalación de dependencias
+### Con Docker
+
+Para levantar ambos servicios en contenedores aislados con un solo comando:
+
+```bash
+docker compose up -d --build
+```
+
+- **Web (Frontend):** `http://localhost:5173`
+- **API (Backend):** `http://localhost:3000`
+
+Para detener los contenedores:
+
+```bash
+docker compose down
+```
+
+---
+
+### Ejecución local con PNPM
+
+#### 1. Instalación de dependencias
 
 Desde la raíz del monorepo:
 
@@ -14,7 +35,7 @@ Desde la raíz del monorepo:
 pnpm install
 ```
 
-### 2. Ejecución en desarrollo
+#### 2. Ejecución en desarrollo
 
 Puedes iniciar ambos proyectos en paralelo o cada uno de forma individual desde la raíz:
 
@@ -30,7 +51,7 @@ Puedes iniciar ambos proyectos en paralelo o cada uno de forma individual desde 
   pnpm run dev:api
   ```
 
-  > La API se ejecutará en **`http://localhost:3001`**.
+  > La API se ejecutará en **`http://localhost:3000`**.
 
 - **Solo la Web (Frontend):**
   ```bash
