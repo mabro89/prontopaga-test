@@ -1,12 +1,12 @@
-import axios from 'axios';
-import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
-import { RefreshResponseSchema } from '@/types/auth.types';
+import axios from "axios";
+import type { AxiosError, InternalAxiosRequestConfig } from "axios";
+import { RefreshResponseSchema } from "@/types/auth.types";
 
 export const apiClient = axios.create({
-  baseURL: '/api',
+  baseURL: "http://localhost:3001/api",
   withCredentials: true,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
@@ -54,15 +54,21 @@ const processQueue = (error: Error | null, token: string | null = null) => {
 apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+    const originalRequest = error.config as InternalAxiosRequestConfig & {
+      _retry?: boolean;
+    };
 
     // Avoid refresh loops for auth endpoints or if already retried
     const isAuthEndpoint =
-      originalRequest?.url?.includes('/auth/login') ||
-      originalRequest?.url?.includes('/auth/refresh') ||
-      originalRequest?.url?.includes('/auth/logout');
+      originalRequest?.url?.includes("/auth/login") ||
+      originalRequest?.url?.includes("/auth/refresh") ||
+      originalRequest?.url?.includes("/auth/logout");
 
-    if (error.response?.status === 401 && !originalRequest?._retry && !isAuthEndpoint) {
+    if (
+      error.response?.status === 401 &&
+      !originalRequest?._retry &&
+      !isAuthEndpoint
+    ) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -81,7 +87,7 @@ apiClient.interceptors.response.use(
 
       try {
         const { data } = await axios.post(
-          '/api/auth/refresh',
+          "/api/auth/refresh",
           {},
           { withCredentials: true },
         );
