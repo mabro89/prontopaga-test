@@ -1,12 +1,12 @@
-import axios from "axios";
-import type { AxiosError, InternalAxiosRequestConfig } from "axios";
-import { RefreshResponseSchema } from "@/types/auth.types";
+import axios from 'axios';
+import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import { RefreshResponseSchema } from '@/types/auth.types';
 
 export const apiClient = axios.create({
-  baseURL: "http://localhost:3001/api",
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
@@ -60,15 +60,11 @@ apiClient.interceptors.response.use(
 
     // Avoid refresh loops for auth endpoints or if already retried
     const isAuthEndpoint =
-      originalRequest?.url?.includes("/auth/login") ||
-      originalRequest?.url?.includes("/auth/refresh") ||
-      originalRequest?.url?.includes("/auth/logout");
+      originalRequest?.url?.includes('/auth/login') ||
+      originalRequest?.url?.includes('/auth/refresh') ||
+      originalRequest?.url?.includes('/auth/logout');
 
-    if (
-      error.response?.status === 401 &&
-      !originalRequest?._retry &&
-      !isAuthEndpoint
-    ) {
+    if (error.response?.status === 401 && !originalRequest?._retry && !isAuthEndpoint) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -86,11 +82,7 @@ apiClient.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const { data } = await axios.post(
-          "/api/auth/refresh",
-          {},
-          { withCredentials: true },
-        );
+        const { data } = await axios.post('/api/auth/refresh', {}, { withCredentials: true });
         const parsed = RefreshResponseSchema.parse(data);
         const newToken = parsed.data.accessToken;
 
