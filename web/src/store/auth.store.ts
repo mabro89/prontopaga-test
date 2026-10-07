@@ -4,6 +4,7 @@ import type { LoginInput, SafeUser } from "@/types/auth.types";
 import { authService } from "@/services/auth.service";
 import { setupApiClientAuth } from "@/services/api.client";
 import { decodeJwtPayload } from "@/utils/jwt";
+import { useScoreStore } from "./score.store";
 
 interface AuthState {
   user: SafeUser | null;
@@ -67,6 +68,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       // Ignore logout network error to always clean local state
     } finally {
       get().clearAuth();
+      useScoreStore.getState().clearCache();
+      useScoreStore.getState().clearScore();
+      useScoreStore.getState().clearError();
       set({ isLoading: false });
     }
   },
